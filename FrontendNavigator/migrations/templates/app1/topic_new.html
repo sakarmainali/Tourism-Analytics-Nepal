@@ -1,0 +1,9 @@
+{% extends 'app1/base.html' %}
+{% block content %}
+    <h3>from form template</h3>
+    <br>
+    <form action="" method="post">{% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" value="SAVE" />
+    </form>
+{% endblock content %}

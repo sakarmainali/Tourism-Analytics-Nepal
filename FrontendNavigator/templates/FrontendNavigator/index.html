@@ -1,0 +1,72 @@
+
+{% extends 'FrontendNavigator/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container">
+<h6><span style="color:blue;font-weight:bold"><center>Want to know more (data specifically) about tourism in context of Nepal? Try explore through Searches</center> </span>
+    <br/>
+	<div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8">
+                            <form class="card card-sm">
+                                <div class="card-body row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas fa-search h4 text-body"></i>
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col">
+                                        <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search topics or keywords">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-lg btn-success" type="submit">Search</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                            </form>
+                
+                        </div>
+                        <!--end of col-->
+                    </div>
+</div>	
+<div style="text-align: center">	 
+
+<img class="img-fluid" alt="Responsive image"
+ src="{% static 'FrontendNavigator/images/inforgaphic_index.png' %}"/>
+</div>
+<div>
+
+{% for notice in all_notifications_list %}
+<span style="color:blue">
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</span>
+
+<br>
+ <b><span style="color:green"> {{notice.title}}</span></b></a> 
+ 
+ 
+
+ <i>{{notice.created_at}} </i><br>
+
+ 
+ <small> {{notice.body}}</small>
+   <br>
+
+
+
+ 
+
+ <span style="color:blue">
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</span>
+<br>
+<br>
+{% endfor %}
+</div>
+
+
+
+{% endblock content %}

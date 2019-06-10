@@ -1,0 +1,5 @@
+all_notifications_list=notify.objects.order_by('created_at')[:10]
+    context = {
+        'all_notifications_list':all_notifications_list
+    }
+    return render(request,'app1/topic_list.html',context)

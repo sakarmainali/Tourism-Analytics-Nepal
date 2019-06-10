@@ -1,0 +1,65 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>template_base1</title>
+ <link rel="stylesheet" href="{% static 'app1/CSS/bootstrap.min.css' %}">
+{% comment %} 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+ {% endcomment %}  
+ </head>
+  <body>
+     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="{% url 'notify_index' %}">HOME</a>
+      <a class="navbar-brand" href="{% url 'topic_list' %}">ANALYSIS</a>
+       <a class="navbar-brand" href="{% url 'predict_list' %}">PREDICTIONS</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+      data-target="#navbarCollapse" aria-controls="navbarCollapse"
+      aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+       {% if user.is_authenticated %}
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+             
+              <a class="nav-link dropdown-toggle" href="" id="userMenu" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false"> {{ user.username }}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                 <a class="dropdown-item"  href="/admin">ADMIN VIEW</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'notify_index' %}"> Log Out</a>
+              </div>
+            </li>
+          </ul>
+        {% else %}
+          <form class="form-inline ml-auto">
+            <a href="/admin" class="btn btn-primary ml-2">
+            ADMIN LOGIN</a>
+            
+          </form>
+        {% endif %}
+      </div>
+    </nav>
+    <div class="container">
+      {% block content %}	  
+      {% endblock content %}
+    </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  
+  <footer >
+	<small><b>&copy;TourismAnalytics 2019</b></small> &emsp; &emsp;&emsp;&emsp;<small><a> Imprint</a> |<a>Terms</a> |<a>Privacy</a> </small>
+	</footer>
+  
+  </nav>
+
+ {% comment %} <script src="{% static 'app1/JS/bootstrap.min.js' %}"></script>
+  <script src="{% static 'app1/JS/jquery-3.3.1.slim.min.js' %}"></script>
+  <script src="{% static 'app1/JS/popper.min.js' %}"></script>  {% endcomment %}
+
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> 
+  </body>
+</html>

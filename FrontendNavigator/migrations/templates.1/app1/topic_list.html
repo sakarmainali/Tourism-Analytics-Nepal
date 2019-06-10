@@ -1,0 +1,48 @@
+{% extends 'app1/base.html' %}
+
+
+{% block content %}
+
+<ul>
+
+<div>
+{% comment %}          <a href="{% url 'topic_new' %}"><span style="color:purple">+ ADD NEW ANALYSIS</span></a>
+ {% endcomment %}        </div>
+<br>
+
+{% for notice in all_notifications_list %}
+<span style="color:blue">
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</span>
+ <a href="{% url 'detail' notice.nid %}">
+<br>
+ <b><span style="color:green"> {{notice.title}}</span></b></a> 
+ 
+ {% comment %} <a href="{% url 'topic_update' notice.nid %}"><h6><span style="color:brown">UDDATE</span></h6></a><t>
+ <a href="{% url 'topic_del' notice.nid %}"><h6><span style="color:red">DELETE</span></h6></a></t> {% endcomment %}
+
+ <i>{{notice.created_at}} </i><br>
+
+ 
+ <small> {{notice.body}}</small>
+   <br>
+
+
+
+ <a href="{% url 'pdf_view'  notice.nid  %}"><span style="color:orange">Downloand PDF </span> </a><br>
+
+ <span style="color:blue">
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</span>
+<br>
+<br>
+{% endfor %}
+{{notice.title}}
+
+<div>
+{{html_table| safe }}
+</div>
+
+</ul>
+
+{% endblock content %}

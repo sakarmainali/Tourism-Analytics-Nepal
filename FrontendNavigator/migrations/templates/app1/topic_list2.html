@@ -1,0 +1,38 @@
+{% extends 'app1/base.html' %}
+
+
+{% block content %}
+
+<ul>
+
+
+<br>
+<div align="right">
+ <a href="{% url 'pdf_view' all_details.nid %}"><span style="color:orange">Downloand PDF </span> </a><br>
+</div>
+
+<br>
+ <b><span style="color:green"> {{all_details.title}}</span></b><br>
+ 
+ 
+  <i>{{all_details.created_at}} </i><br>
+ 
+{{all_details.body}} 
+
+<br>
+ 
+
+
+<small><b>Top 5 records of the dataset</b></small>
+<div>
+{{html_table_template| safe }}
+</div>
+</ul>
+<img align="middle" src="data:image/png;base64,{{image_base64}}" alt="Sorry there's something wrong with py script .Please download analysis to see figure" width=700 height=auto />
+<br>
+{% if  image_base64g %}
+<img src="data:image/png;base64,{{image_base64g}}", width=700 height=auto />
+
+{% endif %}
+
+{% endblock content %}

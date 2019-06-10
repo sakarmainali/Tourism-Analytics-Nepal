@@ -1,0 +1,34 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | ADMIN LOGIN{% endblock %}
+{% block extrastyle %}
+<style>
+#header {
+  background-color:#058BCC;
+  color:black;
+
+}
+#content-main{
+
+    background: #f8f8f8;
+}
+
+
+
+##content-related{
+
+background: ##058BDD;
+}
+
+
+
+
+</style>
+
+
+{% endblock %}
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">ADMIN </a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

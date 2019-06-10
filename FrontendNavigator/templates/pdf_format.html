@@ -1,0 +1,35 @@
+{% extends 'pdfbase.html' %}
+
+
+{% block content %}
+
+
+<ul>
+
+
+         <span style="color:purple">REPORT: {{all_details.id}}</span></a>
+        </div>
+<br>
+
+<br>
+ <b><span style="color:green"> <h2>{{all_details.title}}</h2></span></b>
+ 
+
+ <i>{{all_details.created_at}} </i><br>
+ 
+ {{all_details.body}} 
+<br>
+
+</ul>
+
+<div>
+{{html_table | safe }}
+</div>
+
+<img  src="data:image/png;base64,{{image_base64}}" alt="Sorry there's something wrong with py script......" width=700 height=auto />
+<img src="data:image/png;base64,{{image_base64g}}", width=700 height=auto />
+
+</ul>
+
+
+{% endblock content %}

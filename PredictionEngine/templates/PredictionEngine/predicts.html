@@ -1,0 +1,92 @@
+{% extends 'FrontendNavigator/base.html' %}
+
+
+{% block content %}
+
+<div align="right">
+ <a href="{% url 'ppdf_view' all_details.id %}"><span style="color:orange">Downloand PDF </span> </a><br>
+</div> 
+
+
+
+<form method="post">
+{% csrf_token %}
+<b>NAME OF LOCATION:</b>
+<input type="text" name="place" placeholder="Enter name of location" ><br><br>
+ MAIN PURPOSE OF TOURIST VISIT:<br>
+ <select name="Major purpose of visit">
+    
+    <option value="Treeking">Treeking</option>
+    <option value="Treeking and Mountaineering">Treeking and Mountaineering</option>
+    <option value="holiday and pleasure">holiday and pleasure</option>
+    <option value="Pilgrimage visit">Pilgrimage visit</option>
+  </select>
+  <br>
+  <br>
+<b>ACCESSIBILITY STATUS :</b>
+ <select name="ACCESSIBILITY STATUS">
+    <option value="p">POOR</option>
+    <option value="f">FAIR</option>
+    <option value="g">GOOD</option>
+    <option value="b">BETTER</option>
+  </select>
+  <br>
+  <br>
+<b>ACCOMODATION STATUS :</b>
+ <select name="ACCOMODATION STATUS">
+    <option value="p">POOR</option>
+    <option value="f">FAIR</option>
+    <option value="g">GOOD</option>
+    <option value="b">BETTER</option>
+  </select>
+  <br>
+  <br>
+<b>HEALTH SERVICES/MEDICAL STATUS :</b>
+ <select name="MED STATUS">
+    <option value="p">POOR</option>
+    <option value="f">FAIR</option>
+    <option value="g">GOOD</option>
+    <option value="b">BETTER</option>
+  </select>
+  <br>
+  <br>
+<b>TOURISTS ACTIVITIES IN THE LOCATION:</b><br>
+<input type="checkbox" name=C1 value="1">Mountain climbing/ Mountaineering<br>
+<input type="checkbox" name=C2 value="1">Trekking/hiking<br>
+<input type="checkbox" name=C3 value="1">Scenery,birds,animals watching /Photography<br>
+<input type="checkbox" name=C4 value="1">Mountain flight<br>
+<input type="checkbox" name=C5 value="1">Rock Climbing<br>
+<input type="checkbox" name=C6 value="1">Rafting/kayaking/canyoning/boating<br>
+<input type="checkbox" name=C7 value="1">Hot air Ballooning<br>
+<input type="checkbox" name=C8 value="1">Bungy jumping<br>
+<input type="checkbox" name=C9 value="1">Paragliding<br>
+<input type="checkbox" name=C10 value="1">Ultralight aircraft flying<br>
+<input type="checkbox" name=C11 value="1">Mountain Biking<br>
+<input type="checkbox" name=C12 value="1">Bicycle/Horse riding<br>
+<input type="checkbox" name=C13 value="1">jungle safari /Elephant riding/hunting<br>
+<input type="checkbox" name=C14 value="1">Indoor Enjoyment <br>
+<input type="checkbox" name=C15 value="1">Meditaion /religious activities<br>
+
+<br>
+<br>
+<b>NUMBER OF NEARBY TOURISTS SPOTS/PLACES TO VISIT:</b>
+<input type="text" name="spots" placeholder="Enter no of spots/places">
+<br>
+<br>
+<b><input type="submit" name="S" value="PREDICT THE PERCENTAGE OF TOURIST ARRIVALS "> </b>
+</form>
+<br>
+location name:{{place}}<br>
+Predicted percentage of tourist arrival out of total tourist arrivals:<b>{{new_prediction}}</b>
+
+<br>
+
+
+RECORDS:<br>
+<b>
+{{predicks}}
+</b>
+<br>
+{{message}}
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% load static %}
+<html>
+  <head>
+    <title>template_base1</title>
+	<link href="{% static 'css/base.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+       <h4><a href="{% url 'notify_index' %}">HOME</a></h4>
+    </header>
+    <div>
+      {% block content %}	  
+      {% endblock content %}
+    </div>
+	<footer>
+	<h6>COPYRIGHT@2019</h6>
+	</footer>
+  </body>
+</html>
