@@ -5,9 +5,7 @@
 
 <ul>
 
-<div>
-{% comment %}          <a href="{% url 'topic_new' %}"><span style="color:purple">+ ADD NEW ANALYSIS</span></a>
- {% endcomment %}        </div>
+
 <br>
 
 {% for notice in all_notifications_list %}
@@ -18,8 +16,7 @@
 <br>
  <b><span style="color:green"> {{notice.title}}</span></b></a> 
  
- {% comment %} <a href="{% url 'topic_update' notice.nid %}"><h6><span style="color:brown">UDDATE</span></h6></a><t>
- <a href="{% url 'topic_del' notice.nid %}"><h6><span style="color:red">DELETE</span></h6></a></t> {% endcomment %}
+ 
 
  <i>{{notice.created_at}} </i><br>
 
