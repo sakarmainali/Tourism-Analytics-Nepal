@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from django.http import HttpRequest , HttpResponse ,request
 import pandas as pd 
 import numpy as np
@@ -14,7 +13,6 @@ import base64
 from .models import Predictions
 from django.template.response import TemplateResponse
 from math import sqrt
-from .models import Predictions
 from .utils import render_to_pdf
 from django.template.loader import get_template
 dic=[]
