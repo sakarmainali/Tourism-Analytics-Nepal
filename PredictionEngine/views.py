@@ -321,7 +321,7 @@ def predict_detail(request,id):
 
             dataset = pd.read_csv("assets/predicts.csv")
             
-            #message="PLEASE WAIT FOR A MOMENT WHILE ITS PROCESSING..................."
+            
 
             print(dataset.dtypes)
             #count=ACTIVITIES_C1+ACTIVITIES_C2+ACTIVITIES_C3+ACTIVITIES_C4+ACTIVITIES_C5+ACTIVITIES_C6+ACTIVITIES_C7+ACTIVITIES_C8+ACTIVITIES_C9+ACTIVITIES_C10+ACTIVITIES_C11+ACTIVITIES_C12+ACTIVITIES_C13+ACTIVITIES_C14
