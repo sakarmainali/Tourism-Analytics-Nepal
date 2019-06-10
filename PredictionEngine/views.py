@@ -1,7 +1,4 @@
 from django.shortcuts import render
-from django.views.generic import ListView , DetailView
-
-
 from django.http import HttpRequest , HttpResponse ,request
 import pandas as pd 
 import numpy as np
@@ -16,7 +13,6 @@ import base64
 from .models import Predictions
 from django.template.response import TemplateResponse
 from math import sqrt
-from .models import Predictions
 from .utils import render_to_pdf
 from django.template.loader import get_template
 dic=[]
@@ -29,12 +25,7 @@ def predict_view(request):
     }
     return render(request,'PredictionEngine/predict_list.html',context)
 
-def predict_view2(request):
-    all_notifications_list=Predictions.objects.order_by('created_at')[:10]
-    context = {
-        'all_notifications_list':all_notifications_list
-    }
-    return render(request,'PredictionEngine/predict_list.html',context)
+
 
 
 def PDFF(request,id,*args, **kwargs):
