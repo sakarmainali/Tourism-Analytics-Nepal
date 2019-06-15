@@ -26,7 +26,7 @@ from django.template.loader import get_template
 
 from django.template.response import TemplateResponse
 from django.template.loader import render_to_string
-from django.utils.text import slugify
+#from django.utils.text import slugify
 # Create your views here.
 
 def analysislist(request):

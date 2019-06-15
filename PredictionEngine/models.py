@@ -4,7 +4,6 @@ from datetime import datetime
 
 
 class Predictions(models.Model):
-	
     summary=models.TextField(max_length=1000)
     title=models.CharField(max_length = 100)
     body=models.TextField(max_length= 6000)
