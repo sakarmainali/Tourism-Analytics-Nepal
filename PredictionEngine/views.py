@@ -237,29 +237,15 @@ def predict_detail(request,id):
         html_table_template = df.to_html(index=False)
         html_table=data.to_html(index=False)
         
-        message=""
+        
 
         place=request.POST.get("place")
         purpose=request.POST.get("Major purpose of visit")
         ACCESSIBILITY=request.POST.get("ACCESSIBILITY STATUS")
         ACCOMODATION=request.POST.get("ACCOMODATION STATUS")
         MEDICAL=request.POST.get("MED STATUS")
-        ACTIVITIES_C1=request.POST.get("C1")
-        ACTIVITIES_C2=request.POST.get("C2")
-        ACTIVITIES_C3=request.POST.get("C3")
-        ACTIVITIES_C4=request.POST.get("C4")
-        ACTIVITIES_C5=request.POST.get("C5")
-        ACTIVITIES_C6=request.POST.get("C6")
-        ACTIVITIES_C7=request.POST.get("C7")
-        ACTIVITIES_C8=request.POST.get("C8")
-        ACTIVITIES_C9=request.POST.get("C9")
-        ACTIVITIES_C10=request.POST.get("C10")
-        ACTIVITIES_C11=request.POST.get("C11")
-        ACTIVITIES_C12=request.POST.get("C12")
-        ACTIVITIES_C13=request.POST.get("C13")
-        ACTIVITIES_C14=request.POST.get("C14")
-        ACTIVITIES_C15=request.POST.get("C15")
-        count=0
+
+        
 
         SPOTS=request.POST.get("spots")
         submitt=request.POST.get("S")
@@ -309,8 +295,7 @@ def predict_detail(request,id):
 
 
 
-        #count=ACTIVITIES_C1+ACTIVITIES_C2+ACTIVITIES_C3+ACTIVITIES_C4+ACTIVITIES_C5+ACTIVITIES_C6+ACTIVITIES_C7+ACTIVITIES_C8+ACTIVITIES_C9+ACTIVITIES_C10+ACTIVITIES_C11+ACTIVITIES_C12+ACTIVITIES_C13+ACTIVITIES_C14
-
+        
         new_prediction_value=0
 
        
@@ -331,24 +316,13 @@ def predict_detail(request,id):
             dataset = pd.read_csv("assets/predicts.csv")
             
             
+            activities=[int(0 if request.POST.get("C1") is None else float(request.POST.get("C1"))),int(0 if request.POST.get("C2") is None else float(request.POST.get("C2"))),int(0 if request.POST.get("C3") is None else float(request.POST.get("C3"))),int(0 if request.POST.get("C4") is None else float(request.POST.get("C4"))),int(0 if request.POST.get("C5") is None else float(request.POST.get("C5"))),int(0 if request.POST.get("C6") is None else float(request.POST.get("C6"))),int(0 if request.POST.get("C7") is None else float(request.POST.get("C7"))),int(0 if request.POST.get("C8") is None else float(request.POST.get("C8"))),int(0 if request.POST.get("C9") is None else float(request.POST.get("C9"))),int(0 if request.POST.get("C10") is None else float(request.POST.get("C10"))),int(0 if request.POST.get("C11") is None else float(request.POST.get("C11"))),int(0 if request.POST.get("C12") is None else float(request.POST.get("C12"))),int(0 if request.POST.get("C13") is None else float(request.POST.get("C13"))),int(0 if request.POST.get("C14") is None else float(request.POST.get("C14"))),int(0 if request.POST.get("C15") is None else float(request.POST.get("C15")))]
+            #print(activities)
+            #print(sum(activities))
+            count=sum(activities)
 
             print(dataset.dtypes)
-            #count=ACTIVITIES_C1+ACTIVITIES_C2+ACTIVITIES_C3+ACTIVITIES_C4+ACTIVITIES_C5+ACTIVITIES_C6+ACTIVITIES_C7+ACTIVITIES_C8+ACTIVITIES_C9+ACTIVITIES_C10+ACTIVITIES_C11+ACTIVITIES_C12+ACTIVITIES_C13+ACTIVITIES_C14
-            if( ACTIVITIES_C1 is not None ):count+=1 
-            if (ACTIVITIES_C2 is not None): count+=1
-            if (ACTIVITIES_C3 is not None ):   count+=1
-            if (ACTIVITIES_C4 is not None):count+=1
-            if (ACTIVITIES_C5 is not None):  count+=1 
-            if (ACTIVITIES_C6 is not None):count+=1 
-            if (ACTIVITIES_C7 is not None):count+=1 
-            if (ACTIVITIES_C8 is not None):count+=1 
-            if (ACTIVITIES_C9 is not None):count+=1 
-            if (ACTIVITIES_C10 is not None):count+=1 
-            if (ACTIVITIES_C11 is not None):count+=1 
-            if (ACTIVITIES_C12 is not None):count+=1 
-            if (ACTIVITIES_C13 is not None):count+=1 
-            if (ACTIVITIES_C14 is not None):count+=1 
-            if (ACTIVITIES_C15 is not None):count+=1
+          
              
 
 
@@ -533,7 +507,7 @@ def predict_detail(request,id):
         'html_table':html_table ,
         'html_table_template': html_table_template,
         'predicks':dic ,
-        'message':message ,
+        
 
        
         }
