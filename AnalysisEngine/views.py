@@ -1,32 +1,30 @@
 
+
+# Standard library imports
 from __future__ import unicode_literals
+import io
+
+#Django default imports
 from django.shortcuts import render , redirect
 from django.views.generic import View
-from .models import Analysis
 from django.http import HttpRequest , HttpResponse ,request
+from django.template.loader import get_template
+from django.template.response import TemplateResponse
+from django.template.loader import render_to_string
+
+# Third party imports
 import matplotlib as mpl
 mpl.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib import pylab
-from pylab import *
 import numpy as np
 import pandas as pd
 import seaborn as sns 
-import io
-from io import *
 import base64
-import PIL, PIL.Image
-from pandas.plotting import bootstrap_plot
-from matplotlib import style
-from pandas.plotting import scatter_matrix
-style.use('ggplot')
-from django.http import FileResponse
-from .utils import render_to_pdf
-from django.template.loader import get_template
 
-from django.template.response import TemplateResponse
-from django.template.loader import render_to_string
-from django.utils.text import slugify
+
+# Local application imports
+from .models import Analysis
+from .utils import render_to_pdf
+
 # Create your views here.
 
 def analysislist(request):
@@ -98,10 +96,10 @@ def detailview(request,id):
 
         #storing plots in bytes
         f = io.BytesIO()
-        plt.savefig(f, format="png", dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
         image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
         f.close()
-        plt.clf()
+        mpl.pyplot.clf()
         # getting details of id
         all_details=Analysis.objects.get(id=id)
 
@@ -128,11 +126,11 @@ def detailview(request,id):
 
         #storing plots in bytes
         f = io.BytesIO()
-        plt.savefig(f, format="png", dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
         
         image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
         f.close()
-        plt.clf()
+        mpl.pyplot.clf()
         # getting details of id
         all_details=Analysis.objects.get(id=id)
 
@@ -165,10 +163,10 @@ def detailview(request,id):
         #storing plots in bytes
         f = io.BytesIO()
         #fig.savefig(f, format="png", dpi=600,bbox_inches='tight')
-        plt.savefig(f, format="png", dpi=800,bbox_inches='tight')
+        mpl.pyplot.savefig(f, format="png", dpi=800,bbox_inches='tight')
         image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
         f.close()
-        plt.clf()
+        mpl.pyplot.clf()
         # getting details of id
         all_details=Analysis.objects.get(id=id)
 
@@ -191,34 +189,34 @@ def detailview(request,id):
         data.pivot(index='year', columns='purposes', values='Arrivals').plot(kind='bar')
 
         f = io.BytesIO()
-        plt.savefig(f, format="png", dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
         image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
         f.close()
-        plt.clf()
+        mpl.pyplot.clf()
         
-        plt.axhline(0, color='k')
+        mpl.pyplot.axhline(0, color='k')
         #Data to plot for piechart1(tourist arrivals purpose of visits)
         labels = 'holiday pleasure', 'trekking and mountaineering', 'business', 'pilgrimage','official','conference','others'
         sizes = [489451,66490,24322,82830,21310,12801,55797] # of latest year 2017 in tourist arrivals by purpose
         colors = ['gold', 'green', 'lightcoral', 'lightskyblue','blue','red','purple']
-        patches, texts = plt.pie(sizes, colors=colors, shadow=True, startangle=90)
-        plt.legend(patches, labels, loc="best")
-        plt.axis('equal')
-        plt.tight_layout()
-        plt.show()
+        patches, texts = mpl.pyplot.pie(sizes, colors=colors, shadow=True, startangle=90)
+        mpl.pyplot.legend(patches, labels, loc="best")
+        mpl.pyplot.axis('equal')
+        mpl.pyplot.tight_layout()
+        mpl.pyplot.show()
         """
         Now the redirect into the  BytesIO object >>>
         """
         
         g = io.BytesIO()          
-        plt.savefig(g, format="png", facecolor=(0.95,0.95,0.95))
-        plt.clf()
+        mpl.pyplot.savefig(g, format="png", facecolor=(0.95,0.95,0.95))
+        mpl.pyplot.clf()
         image_base64g= base64.b64encode(g.getvalue()).decode('utf-8').replace('\n', '')
         g.close()
 
 
         # getting details of id
-        all_details=Analysis.objects.get(nid=id)
+        all_details=Analysis.objects.get(id=id)
 
         #parsing suitable context for redering...
         context = {
@@ -246,10 +244,10 @@ def detailview(request,id):
 
         #storing plots in bytes
         f = io.BytesIO()
-        plt.savefig(f, format="png", dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
         image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
         f.close()
-        plt.clf()
+        mpl.pyplot.clf()
         # getting details of id
         all_details=Analysis.objects.get(id=id)
 

@@ -1,20 +1,41 @@
-from django.shortcuts import render
+
+
+# Standard library imports
+from __future__ import unicode_literals
+import io
+from math import sqrt
+#Django default imports
+from django.shortcuts import render , redirect
 from django.http import HttpRequest , HttpResponse ,request
-import pandas as pd 
-import numpy as np
+from django.template.loader import get_template
+from django.template.response import TemplateResponse
+from django.template.loader import render_to_string
+
+# Third party imports
 import matplotlib as mpl
 mpl.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib import pylab
-from pylab import *
-import io
-from io import *
+import numpy as np
+import pandas as pd
+
 import base64
+from sklearn.preprocessing import StandardScaler
+
+
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
+import keras
+from keras import backend as K
+from keras import losses
+from keras.models import Sequential
+from keras.layers import Dense
+
+
+# Local application imports
 from .models import Predictions
-from django.template.response import TemplateResponse
-from math import sqrt
 from .utils import render_to_pdf
-from django.template.loader import get_template
+
+
+
 dic=[]
 # Create your views here.
 
@@ -34,13 +55,10 @@ def PDFF(request,id,*args, **kwargs):
 
     all_details=Predictions.objects.get(id=id)
     title=all_details.title
-    #print(id)
-    #print(all_details)
     response=predict_detail(request,id)
     html_table=response.context_data['html_table']
     image_base64=response.context_data['image_base64']
-    #image_base64g=response.context_data['image_base64g']
-    #print(html_table)
+    
    
     context = {
     'all_details': all_details ,
@@ -80,10 +98,10 @@ def predict_detail(request,id):
 
         #storing plots in bytes
         f = io.BytesIO()
-        plt.savefig(f, format="png", dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
         image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
         f.close()
-        plt.clf()
+        mpl.pyplot.clf()
         # getting details of id
         all_details=Predictions.objects.get(id=id)
 
@@ -179,17 +197,17 @@ def predict_detail(request,id):
         y2= Y
 
         dataset.plot.line(x='starting fiscal  year ', y='Net received foreign exchange earning(NRs in million)')
-        plt.plot(x,y1,color='red')
+        mpl.pyplot.plot(x,y1,color='red')
 
-        plt.scatter(x,y2,color='k')
-        plt.show()
+        mpl.pyplot.scatter(x,y2,color='k')
+        mpl.pyplot.show()
          #storing plots in bytes
         g = io.BytesIO()
         #fig.savefig(f, format="png", dpi=600,bbox_inches='tight')
-        plt.savefig(g, format="png", dpi=800,bbox_inches='tight')
+        mpl.pyplot.savefig(g, format="png", dpi=800,bbox_inches='tight')
         image_base64g = base64.b64encode(g.getvalue()).decode('utf-8').replace('\n', '')
         g.close()
-        plt.clf()
+        mpl.pyplot.clf()
         x=2018
         nexts=linear_reg_perdict(dataset,x)
 
@@ -355,7 +373,7 @@ def predict_detail(request,id):
             y = dataset.iloc[:,10].values
             print(y)
             # Encoding categorical data
-            from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+            
             labelencoder_X_3 = LabelEncoder()
             X[:, 3] = labelencoder_X_3.fit_transform(X[:, 3])
 
@@ -384,7 +402,7 @@ def predict_detail(request,id):
             b=y_train
 
             # Feature Scaling //escaping
-            from sklearn.preprocessing import StandardScaler
+            
             sc = StandardScaler()
             X_train = sc.fit_transform(X_train)
             X_test = sc.transform(X_test)
@@ -392,11 +410,7 @@ def predict_detail(request,id):
             # Part 2 - Now let's make the ANN!
 
             # Importing the Keras libraries and packages
-            import keras
-            from keras import backend as K
-            from keras import losses
-            from keras.models import Sequential
-            from keras.layers import Dense
+            
             
             # Initialising the ANN for regression
     
