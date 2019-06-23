@@ -19,7 +19,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns 
 import base64
-
+import geopandas as gpd
 
 # Local application imports
 from .models import Analysis
@@ -260,6 +260,71 @@ def detailview(request,id):
        
         }
         return TemplateResponse(request,'AnalysisEngine/analysis_detail.html',context)
+
+    elif (id==6):
+        data=pd.read_csv("F:\\ANACONDAA\\input\\nepal-district.csv")
+        df=data.iloc[:5]
+        html_table_template = df.to_html(index=False)
+        html_table=data.to_html(index=False)
+        #data plotting/visualizing........
+        
+        #Attribute Filtering
+        df2=data[['District','Zones','Development Regions','Tourist places']]
+        
+        #read shape file
+
+        fp="F:\\ANACONDAA\\input\\NepalMaps-master\\NepalMaps-master\\baselayers\\NPL_adm\\NPL_adm3.shp"
+
+        map_df = gpd.read_file(fp)
+
+        #joining file
+
+        merged = map_df.set_index('NAME_3').join(df2.set_index('District'))
+
+        variable= 'Tourist places' #plotting data 
+
+        vmin, vmax = 1, 15  #data min - max values
+
+        fig, ax = mpl.pyplot.subplots(1, figsize=(15, 7)) #number of figure and size axis
+
+        #plotting map
+
+        merged.plot(column = variable, cmap='Blues', linewidth = 0.8,ax=ax, edgecolor = '0.8')
+
+        ax.axis('off')
+        ax.set_title('Tourist Attraction Places in Nepal', fontdict={'fontsize':'25', 'fontweight':'3'})
+
+        # Create colorbar as a legend
+
+        sml = mpl.pyplot.cm.ScalarMappable(cmap='Blues', norm=mpl.pyplot.Normalize(vmin=vmin, vmax=vmax))
+
+        # empty array for the data range
+
+        sml._A = []
+
+        # add the colorbar to the figure
+
+        cbar = fig.colorbar(sml)
+
+        #storing plots in bytes
+        f = io.BytesIO()
+        mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
+        image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
+        f.close()
+        mpl.pyplot.clf()
+        # getting details of id
+        all_details=Analysis.objects.get(id=id)
+
+        #parsing suitable context for redering...
+        context = {
+        'all_details':all_details ,
+        'html_table':html_table ,
+        'html_table_template': html_table_template,
+        'image_base64':image_base64 ,
+       
+        }
+        return TemplateResponse(request,'AnalysisEngine/analysis_detail.html',context)
+
 
     else:
        pass   
