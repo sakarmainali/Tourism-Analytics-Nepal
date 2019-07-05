@@ -49,7 +49,29 @@ def predict_view(request):
     return render(request,'PredictionEngine/predict_list.html',context)
 
 
+def listpicview(request,id):
 
+    if id == 1:
+       
+
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':1,})
+    if id == 2:
+       
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':2,})
+    if id == 3:
+        
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':3,})
+    if id == 4:
+       
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':4,})
+
+    if id == 5:
+        
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':5,})
+
+    if id == 6:
+        
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':6,})
 
 def PDFF(request,id,*args, **kwargs):
     
@@ -89,12 +111,12 @@ def PDFF(request,id,*args, **kwargs):
 def predict_detail(request,id):
     if (id==1):
         #data collecting...converting dataset to html....
-        data=pd.read_csv("F:\\ANACONDAA\\input\\gross foreign exchange earning from tourism.csv",header=0)
+        data=pd.read_csv("F:\\ANACONDAA\\input\\gross foreign exchange earning from tourism.csv",header=0,index_col=0)
         df=data.iloc[:5]
         html_table_template = df.to_html(index=False)
         html_table=data.to_html(index=False)
         #data plotting/visualizing........
-        #data.pivot(index='Subsector', columns='Disaster effect', values='value( NPR Million)').plot(kind='bar')
+       
         
         data.plot()
 
@@ -562,10 +584,10 @@ def predict_detail(request,id):
         training_diff=training.diff(periods=1).values[1:]
 
         #plot of residual log differenced series
-        plt.plot(training_diff)
-        plt.title("Tourist arrivals data log-differenced")
-        plt.xlabel("Years")
-        plt.ylabel("Toursits arrivals")
+        mpl.pyplot.plot(training_diff)
+        mpl.pyplot.title("Tourist arrivals data log-differenced")
+        mpl.pyplot.xlabel("Years")
+        mpl.pyplot.ylabel("Toursits arrivals")
 
 
         #ACF and PACF plots 1(with log differenced training data)

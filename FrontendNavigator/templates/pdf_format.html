@@ -1,5 +1,5 @@
 {% extends 'pdfbase.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -26,8 +26,42 @@
 {{html_table | safe }}
 </div>
 
-<img  src="data:image/png;base64,{{image_base64}}" alt="Sorry there's something wrong with py script......" width=700 height=auto />
-<img src="data:image/png;base64,{{image_base64g}}", width=700 height=auto />
+
+
+<br>
+{% if all_details.id == 1 %}
+
+yep image not loaded...
+<img src="{% static 'AnalysisEngine/id1.png'%}" width=700 height=auto />
+
+{% endif %}
+{% if all_details.id == 2 %}
+
+<img src="{% static 'img/id2.png'%}" width=700 height=auto />
+
+{% endif %}
+{% if all_details.id == 3 %}
+
+<img src="{% static 'img/id3.png'%}" width=700 height=auto />
+
+{% endif %}
+
+{% if all_details.id == 4 %}
+
+<img src="{% static 'img/id4.png'%}" width=700 height=auto />
+<img src="{% static 'img/id44.png'%}" width=700 height=auto />
+
+{% endif %}
+{% if all_details.id == 5 %}
+
+<img src="{% static 'img/id5.png'%}" width=700 height=auto />
+
+{% endif %}
+
+
+
+
+
 
 </ul>
 

@@ -1,45 +1,75 @@
 {% extends 'FrontendNavigator/base.html' %}
 
 
-{% block content %}
+{% block content %} 
+{% load static%}
+<div class="ch-container">
+    <div class="row">
+        
+        
+        <div class="col-sm-2 col-lg-2">
+            <div class="sidebar-nav">
+                <div class="nav-canvas">
+                      <ul class="nav nav-pills nav-stacked main-menu">
+                        <li class="nav-header">Main</li> 
+                        <li>  
+<!-- <div id=analysislist> -->
 
-<ul>
+ <a href="{% url 'pic' 1 %}">
+ <b><span> Earthquake Effect</span></b></a> 
+ <br>
+  <a href="{% url 'pic' 2 %}">
+ <b><span>Arrival by Age Group</span></b></a> 
+ <br>
+  <a href="{% url 'pic' 3 %}">
+ <b><span>Economic Indicators of Hotels</span></b></a> 
+ <br>
+  <a href="{% url 'pic' 4 %}">
+ <b><span>Arrival Purposes</span></b></a> 
+ <br>
+  <a href="{% url 'pic' 5 %}">
+ <b><span>Number of tourist Guides/Industries</span></b></a> 
+ <br>
+  <a href="{% url 'pic' 6 %}">
+ <b><span>No.of tourist attractions places distributions in map</span></b></a> 
+ <br>
+              </li>                             
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="col-lg-10 col-sm-10">
+            
+            {% comment %} <div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="#">Analysis</a>
+        </li>
+        <li>
+            <a href="#">{{notice.title}}</a>
+        </li>
+    </ul>
+</div> {% endcomment %}
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-home"></i> Introduction</h2>
+            </div>
+            <div class="box-content row">
+                <div class="col-lg-7 col-md-12">
+                      {% block img_content %}
+                        <a href={% url 'detail' 1 %}>
+                            <img src="{% static 'img/id1.png'%}" width=300 height=auto />
+                        </a>
 
 
-<br>
-
-{% for notice in all_notifications_list %}
-<span style="color:blue">
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-</span>
- <a href="{% url 'detail' notice.id %}">
-<br>
- <b><span style="color:green"> {{notice.title}}</span></b></a> 
- 
- 
-
- <i>{{notice.created_at}} </i><br>
-
- 
- <small> {{notice.body}}</small>
-   <br>
-
-
-
- <a href="{% url 'pdf_view'  notice.id  %}"><span style="color:orange">Downloand PDF </span> </a><br>
-
- <span style="color:blue">
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-</span>
-<br>
-<br>
-{% endfor %}
-{{notice.title}}
-
-<div>
-{{html_table| safe }}
+						{% endblock img_content %}
+            </div>
+        </div>
+    </div>
 </div>
 
-</ul>
 
 {% endblock content %}
