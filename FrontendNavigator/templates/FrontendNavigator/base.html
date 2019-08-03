@@ -7,45 +7,38 @@
     <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+
     
 </head>
 
 <body>
     
     <div class="navbar navbar-default" role="navigation">
-
-        <div class="navbar-inner">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <span>Tourism Analytics</span></a>
-
-            
+      <div class="navbar-inner">
+        <a class="navbar-brand" href="{% url 'index' %}">
+         <span>Tourism Analytics</span></a>
             <div class="btn-group pull-right">
-      {% if user.is_authenticated %} 
-          
-               <div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> 
-                  {{ user.username }}   <span class="caret"></span>
-                  </button>
+             {% if user.is_authenticated %} 
+              <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" > 
+                {{ user.username }} <span class="caret"></span></button>
                   <ul class="dropdown-menu">
                     <a class="dropdown-item"  href="/admin">ADMIN VIEW</a>
                       <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item" href="/admin/logout"> Log Out</a>
-                </ul>
-             </div>
-        {% else %}
-            <a href="/admin" class="btn btn-primary ml-2">
-            ADMIN LOGIN</a>
-            
-        {% endif %}
-      
-            </div>      
-            
+                  </ul>
+              </div>
+              {% else %}
+              <a href="/admin" class="btn btn-default ml-2">ADMIN LOGIN</a>
+             {% endif %}
+            </div> 
 
             <ul class="collapse navbar-collapse nav navbar-nav top-menu">
               <li class='nav-itemm'>
-                 <a href="{%url 'topic_list' %}" style="display: inline-block; font-size: 18px;">Analysis</a>
-                  <a href="{%url 'predict_list' %}" style="display: inline-block;font-size: 18px;">Predictions</a>
+                 <a href="{%url 'topic_list' %}">Analysis</a>
+                  <a href="{%url 'predict_list' %}">Predictions</a>
               </li>
 
                 <li >
@@ -61,20 +54,9 @@
         </div>
     </div>
 
+
 {% block content %}
 {% endblock content %}
-
-<div class='contact'>
-	CONTACT US
-</div>
-
-<div class='footer'>
-	<b>FOOTER</b>
-	This is the footer session
-	<br>
-	
-
-</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

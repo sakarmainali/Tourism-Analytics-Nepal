@@ -13,13 +13,13 @@ from django.template.response import TemplateResponse
 from django.template.loader import render_to_string
 
 # Third party imports
-import matplotlib as mpl
-mpl.use("Agg")
-import numpy as np
+# import matplotlib as mpl
+# mpl.use("Agg")
+# import numpy as np
 import pandas as pd
-import seaborn as sns 
-import base64
-import geopandas as gpd
+# import seaborn as sns 
+# import base64
+# import geopandas as gpd
 
 # Local application imports
 from .models import Analysis
@@ -28,14 +28,6 @@ from .utils import render_to_pdf
 # Create your views here.
 
 def analysislist(request):
-
-
-
-    
-
-
-
-
 
     all_notifications_list=Analysis.objects.order_by('created_at')[:20]
     context = {
@@ -213,7 +205,7 @@ def detailview(request,id):
 
     elif (id==6):
 
-        data=pd.read_csv("F:\\ANACONDAA\\input\\nepal-district.csv")
+        data=pd.read_csv("assets/nepal-district.csv")
         df=data.iloc[:5]
         html_table_template = df.to_html(index=False)
         html_table=data.to_html(index=False)

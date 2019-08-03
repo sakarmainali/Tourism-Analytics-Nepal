@@ -111,7 +111,7 @@ def PDFF(request,id,*args, **kwargs):
 def predict_detail(request,id):
     if (id==1):
         #data collecting...converting dataset to html....
-        data=pd.read_csv("F:\\ANACONDAA\\input\\gross foreign exchange earning from tourism.csv",header=0,index_col=0)
+        data=pd.read_csv("assets\gross foreign exchange earning from tourism.csv",header=0,index_col=0)
         df=data.iloc[:5]
         html_table_template = df.to_html(index=False)
         html_table=data.to_html(index=False)
@@ -203,7 +203,7 @@ def predict_detail(request,id):
             return y_predict
 
 
-        dataset = pd.read_csv("F:\\ANACONDAA\\input\\gross foreign exchange earning from tourism.csv",skiprows=0)
+        dataset = pd.read_csv("assets/gross foreign exchange earning from tourism.csv",skiprows=0)
         dataset.head(5)
         X=dataset.iloc[:,0].values
         Y=dataset.iloc[:,1].values
@@ -220,7 +220,7 @@ def predict_detail(request,id):
         y1 = b0 + b1 * x
         y2= Y
 
-        dataset.plot.line(x='starting fiscal  year ', y='Net received foreign exchange earning(NRs in million)')
+        dataset.plot.line(x='fiscal  year start ', y='Net received foreign exchange earning(NRs in million)')
         mpl.pyplot.plot(x,y1,color='red')
 
         mpl.pyplot.scatter(x,y2,color='k')
@@ -542,7 +542,7 @@ def predict_detail(request,id):
 
     if (id==3):
         #data collecting...converting dataset to html....
-        df = pd.read_csv('F:\\ANACONDAA\\input\\Touristarrival_monthly.csv')
+        df = pd.read_csv('assets/Touristarrival_monthly.csv')
         df1=df.iloc[:5]
         html_table_template = df1.to_html(index=False)
         html_table=df.to_html(index=False)

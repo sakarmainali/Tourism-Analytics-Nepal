@@ -4,37 +4,10 @@
 }
 
 .footer {
-    background-image: -webkit-linear-gradient(#3CB371, #3CB371 60%, #3CB371);
-    background-image: -o-linear-gradient(#3CB371, #3CB371 60%, #3CB371);
-    background-image: linear-gradient(#3CB371, #3CB371 60%, #3CB371);
-    background-repeat: no-repeat;
-    filter: none;
-    -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    background-color: black;
     color: white;
-    text-decoration: none;
-}
-
-footer {
-    float: left;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    color: white;
+    font-size: 18px;
     text-align: center;
-}
-
-.footer a {
-    text-decoration: none;
-    color: white;
-}
-
-.Gallery {
-    background-color: cyan;
-}
-
-.contact {
-    background-color: gray;
 }
 
 .navbar-brand {
@@ -55,17 +28,15 @@ footer {
 }
 
 .slides {
-    /*float: left;*/
     /*display: inline-block;*/
-    width: 100%;
-    display: inline-block;
-    /*height: 50%;*/
+    margin:0 3px 0 3px;
+    /*width: 100%;*/
+    
 }
 
 .mySlides {
-    height: 10%;
-    /*width: 60%;*/
-    display: none;
+    width: 100%;
+    height: 450px;
 }
 
 .navbar-inner {
@@ -280,10 +251,15 @@ ul.main-menu li:not(.nav-header) {
 .alert-info {
     color: #3b9f3d !important;
 }
-
-.btn.btn-primary:hover {
+.nav-itemm a:hover{
     background-color: #6B8E23 !important;
     color: #fff !important;
+
+}
+.nav-itemm a{
+    display: inline-block; 
+    font-size: 18px;
+    float: left;
 }
 
 div.center,
