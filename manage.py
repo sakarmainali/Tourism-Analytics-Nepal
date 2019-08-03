@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns 
 import base64
-#import geopandas as gpd
+import geopandas as gpd
 
 def main():
 
@@ -80,59 +80,59 @@ def main():
         #No. of tourists destinations distribution map
 
 
-        # data=pd.read_csv("C:\\Users\\Administrator\\Desktop\\TAwithUIModified-master\\TAwithUIModified-master\\assests\\nepal-district.csv")
+        data=pd.read_csv("assets\\nepal-district.csv")
 
 
-        # df2=data[['District','Zones','Development Regions','Tourist places']]
+        df2=data[['District','Zones','Development Regions','Tourist places']]
         
-        # #read shape file
+        #read shape file
 
-        # fp="NepalMaps-master\\baselayers\\NPL_adm\\NPL_adm3.shp"
+        fp="assets\\NepalMaps-master\\baselayers\\NPL_adm\\NPL_adm3.shp"
 
-        # map_df = gpd.read_file(fp)
+        map_df = gpd.read_file(fp)
 
-        # #joining file
+        #joining file
 
-        # merged = map_df.set_index('NAME_3').join(df2.set_index('District'))
+        merged = map_df.set_index('NAME_3').join(df2.set_index('District'))
 
-        # variable= 'Tourist places' #plotting data 
+        variable= 'Tourist places' #plotting data 
 
-        # vmin, vmax = 1, 15  #data min - max values
+        vmin, vmax = 1, 15  #data min - max values
 
-        # fig, ax = mpl.pyplot.subplots(1, figsize=(15, 7)) #number of figure and size axis
+        fig, ax = mpl.pyplot.subplots(1, figsize=(15, 7)) #number of figure and size axis
 
-        # #plotting map
+        #plotting map
 
-        # merged.plot(column = variable, cmap='Blues', linewidth = 0.8,ax=ax, edgecolor = '0.8')
+        merged.plot(column = variable, cmap='Blues', linewidth = 0.8,ax=ax, edgecolor = '0.8')
 
-        # ax.axis('off')
-        # ax.set_title('Tourist Attraction Places in Nepal', fontdict={'fontsize':'25', 'fontweight':'3'})
+        ax.axis('off')
+        ax.set_title('Tourist Attraction Places in Nepal', fontdict={'fontsize':'25', 'fontweight':'3'})
 
-        # # Create colorbar as a legend
+        # Create colorbar as a legend
 
-        # sml = mpl.pyplot.cm.ScalarMappable(cmap='Blues', norm=mpl.pyplot.Normalize(vmin=vmin, vmax=vmax))
+        sml = mpl.pyplot.cm.ScalarMappable(cmap='Blues', norm=mpl.pyplot.Normalize(vmin=vmin, vmax=vmax))
 
-        # # empty array for the data range
+        # empty array for the data range
 
-        # sml._A = []
+        sml._A = []
 
-        # # add the colorbar to the figure
+        # add the colorbar to the figure
 
-        # cbar = fig.colorbar(sml)
+        cbar = fig.colorbar(sml)
 
-        # #storing plots in bytes
+        #storing plots in bytes
         
-        # mpl.pyplot.savefig('AnalysisEngine/static/img/id6.png', dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig('AnalysisEngine/static/img/id6.png', dpi=600,bbox_inches='tight')
     
-        # mpl.pyplot.clf()
+        mpl.pyplot.clf()
 
-        # #Gross foreign exchange earning from tourism
-        # data=pd.read_csv("C:\\Users\\Administrator\\Desktop\\TAwithUIModified-master\\TAwithUIModified-master\\assests\\gross foreign exchange earning from tourism.csv",header=0,index_col=0)
-        # data.plot()
+        #Gross foreign exchange earning from tourism
+        data=pd.read_csv("assets\\gross foreign exchange earning from tourism.csv",header=0,index_col=0)
+        data.plot()
        
-        # mpl.pyplot.savefig('AnalysisEngine/static/img/pid1.png',dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig('AnalysisEngine/static/img/pid1.png',dpi=600,bbox_inches='tight')
         
-        # mpl.pyplot.clf()
+        mpl.pyplot.clf()
 
 
 
