@@ -49,7 +49,29 @@ def predict_view(request):
     return render(request,'PredictionEngine/predict_list.html',context)
 
 
+def listpicview(request,id):
 
+    if id == 1:
+       
+
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':1,})
+    if id == 2:
+       
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':2,})
+    if id == 3:
+        
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':3,})
+    if id == 4:
+       
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':4,})
+
+    if id == 5:
+        
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':5,})
+
+    if id == 6:
+        
+        return render(request,'PredictionEngine/prediction_pic.html',{'id':6,})
 
 def PDFF(request,id,*args, **kwargs):
     
@@ -89,12 +111,12 @@ def PDFF(request,id,*args, **kwargs):
 def predict_detail(request,id):
     if (id==1):
         #data collecting...converting dataset to html....
-        data=pd.read_csv("F:\\ANACONDAA\\input\\gross foreign exchange earning from tourism.csv",header=0)
+        data=pd.read_csv("assets\gross foreign exchange earning from tourism.csv",header=0,index_col=0)
         df=data.iloc[:5]
         html_table_template = df.to_html(index=False)
         html_table=data.to_html(index=False)
         #data plotting/visualizing........
-        #data.pivot(index='Subsector', columns='Disaster effect', values='value( NPR Million)').plot(kind='bar')
+       
         
         data.plot()
 
@@ -181,7 +203,7 @@ def predict_detail(request,id):
             return y_predict
 
 
-        dataset = pd.read_csv("F:\\ANACONDAA\\input\\gross foreign exchange earning from tourism.csv",skiprows=0)
+        dataset = pd.read_csv("assets/gross foreign exchange earning from tourism.csv",skiprows=0)
         dataset.head(5)
         X=dataset.iloc[:,0].values
         Y=dataset.iloc[:,1].values
@@ -198,7 +220,7 @@ def predict_detail(request,id):
         y1 = b0 + b1 * x
         y2= Y
 
-        dataset.plot.line(x='starting fiscal  year ', y='Net received foreign exchange earning(NRs in million)')
+        dataset.plot.line(x='fiscal  year start ', y='Net received foreign exchange earning(NRs in million)')
         mpl.pyplot.plot(x,y1,color='red')
 
         mpl.pyplot.scatter(x,y2,color='k')
@@ -520,7 +542,7 @@ def predict_detail(request,id):
 
     if (id==3):
         #data collecting...converting dataset to html....
-        df = pd.read_csv('F:\\ANACONDAA\\input\\Touristarrival_monthly.csv')
+        df = pd.read_csv('assets/Touristarrival_monthly.csv')
         df1=df.iloc[:5]
         html_table_template = df1.to_html(index=False)
         html_table=df.to_html(index=False)
@@ -562,10 +584,10 @@ def predict_detail(request,id):
         training_diff=training.diff(periods=1).values[1:]
 
         #plot of residual log differenced series
-        plt.plot(training_diff)
-        plt.title("Tourist arrivals data log-differenced")
-        plt.xlabel("Years")
-        plt.ylabel("Toursits arrivals")
+        mpl.pyplot.plot(training_diff)
+        mpl.pyplot.title("Tourist arrivals data log-differenced")
+        mpl.pyplot.xlabel("Years")
+        mpl.pyplot.ylabel("Toursits arrivals")
 
 
         #ACF and PACF plots 1(with log differenced training data)

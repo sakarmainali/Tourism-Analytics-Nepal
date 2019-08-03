@@ -1,0 +1,27 @@
+{% extends 'AnalysisEngine/analysis_list.html' %}
+
+{% block img_content %}
+{% load static %}
+<a href={% url 'detail' id %}>
+{% if id == 1 %}
+<img src="{% static 'img/id1.png'%}" width=300 height=auto />
+{% elif id == 2 %}
+<img src="{% static 'img/id2.png'%}" width=300 height=auto />
+
+{% elif id == 3%}
+<img src="{% static 'img/id3.png'%}" width=300 height=auto />
+
+{% elif id == 4%}
+<img src="{% static 'img/id4.png'%}" width=300 height=auto />
+<img src="{% static 'img/id44.png'%}" width=300 height=auto />
+
+{% elif id == 5%}
+<img src="{% static 'img/id5.png'%}" width=300 height=auto />
+
+{% elif id == 6%}
+<img src="{% static 'img/id6.png'%}" width=300 height=auto />
+
+{% endif %}
+</a>
+
+{% endblock img_content %}

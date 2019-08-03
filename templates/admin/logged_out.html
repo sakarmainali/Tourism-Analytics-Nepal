@@ -1,0 +1,8 @@
+{% extends "admin/logged_out.html" %}
+
+{% block content %}
+
+<p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
+
+<p><button><a href="{% url 'admin:index' %}">{% trans 'Log in again' %}</a></button></p>
+{% endblock %}

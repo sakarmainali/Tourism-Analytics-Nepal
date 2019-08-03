@@ -1,37 +1,59 @@
 {% extends 'FrontendNavigator/base.html' %}
 
 
-{% block content %}
-<ul>
+{% block content %} 
+{% load static%}
+<div class="ch-container">
+    <div class="row">
+        
+        
+        <div class="col-sm-2 col-lg-2">
+            <div class="sidebar-nav">
+                <div class="nav-canvas">
+                      <ul class="nav nav-pills nav-stacked main-menu">
+                        <li class="nav-header">Main</li> 
+                        <li>  
+<!-- <div id=analysislist> -->
+
+ <a href="{% url 'ppic' 1 %}">
+ <b><span>  Gross Foreign Exchange Earning from tourism </span></b></a> 
+ <br>
+  <a href="{% url 'ppic' 2 %}">
+ <b><span>Ranking of new tourist destinations </span></b></a> 
+ <br>
+  <a href="{% url 'ppic' 3 %}">
+ <b><span>Prediction of monthly tourist arrivals</span></b></a> 
+ <br>
 
 
-{% for notice in all_notifications_list %}
-<span style="color:blue">
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-</span>
- <a href="{% url 'predict_detail' notice.id %}">
-<br>
- <b><span style="color:green"> {{notice.title}}</span></b></a> 
- 
+              </li>                             
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="col-lg-10 col-sm-10">
+            
+         
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-home"></i> Introduction</h2>
+            </div>
+            <div class="box-content row">
+                <div class="col-lg-7 col-md-12">
+                      {% block img_content %}
+                        <a href={% url 'predict_detail' 1 %}>
+                            <img src="{% static 'img/pid1.png'%}" width=300 height=auto />
+                        </a>
 
 
- <i>{{notice.created_at}} </i><br>
+						{% endblock img_content %}
+            </div>
+        </div>
+    </div>
+</div>
 
- 
- <small> {{notice.body}}</small>
-   <br>
-
-
-
-  <a href="{% url 'ppdf_view'  notice.id  %}"><span style="color:orange">Downloand PDF </span> </a><br>
- 
- <span style="color:blue">
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-</span>
-<br>
-<br>
-{% endfor %}
-
-</ul>
 
 {% endblock content %}
