@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import acf,pacf
-
+from statsmodels.iolib.smpickle import load_pickle
 import base64
 from sklearn.preprocessing import StandardScaler
 
@@ -29,6 +29,7 @@ import keras
 from keras import backend as K
 from keras import losses
 from keras.models import Sequential
+from keras.models import load_model
 from keras.layers import Dense
 
 
@@ -333,6 +334,7 @@ def predict_detail(request,id):
         @author: sakar
         """
         if(submitt=='PREDICT THE PERCENTAGE OF TOURIST ARRIVALS '):
+            K.clear_session()
             
 
             # Importing the dataset and separating dependent/independent variables
@@ -404,44 +406,9 @@ def predict_detail(request,id):
             sc = StandardScaler()
             X_train = sc.fit_transform(X_train)
             X_test = sc.transform(X_test)
+            print(X_train)
+            print(X_test)
 
-            # Part 2 - Now let's make the ANN!
-
-            # Importing the Keras libraries and packages
-            
-            
-            # Initialising the ANN for regression
-    
-
-
-            #Creating regression model
-            REG = Sequential()
-
-            # Adding the input layer and the first hidden layer with dropout if required
-            REG.add(Dense(units=20,input_dim=9 ,kernel_initializer="normal", activation = 'relu'))
-            #REG.add(Dropout(p=0.1))
-            # Adding the second hidden layer
-            REG.add(Dense(units =20,kernel_initializer="normal", activation = 'relu'))
-            #REG.add(Dropout(p=0.1))
-            # Adding the output layer
-            REG.add(Dense(units = 1, kernel_initializer="normal"))
-
-            # Compiling the ANN
-            #def root_mean_squared_error(y_true, y_pred):
-            #        return K.sqrt(K.mean(K.square(y_pred - y_true))) 
-                
-            REG.compile(optimizer = 'adam', loss= 'mean_squared_error')
-
-            # Fitting the ANN to the Training set
-            REG.fit(X_train, y_train, batch_size = 10, epochs = 200)
-
-            # Part 3 - Making the predictions and evaluating the model
-            X_test
-
-
-
-            # Predicting the Test set results
-            y_pred = REG.predict(X_test)
 
 
 
@@ -504,9 +471,9 @@ def predict_detail(request,id):
             
 
 
-
-
-            new_prediction = REG.predict(sc.transform(np.array([[v1,v2,v3,2018,SPOTS,count,a_status,am_status,m_status]])))
+            
+            REG_model=load_model('assets/REG_MLP_model.h5')
+            new_prediction = REG_model.predict(sc.transform(np.array([[v1,v2,v3,2018,SPOTS,count,a_status,am_status,m_status]])))
             #new_prediction = REG.predict(sc.transform(np.array([[v1,v2,v3,2018,4,3,3,2,3]])))
             new_prediction_value=abs(np.asscalar(new_prediction))
             print(new_prediction_value)
@@ -547,92 +514,94 @@ def predict_detail(request,id):
         html_table_template = df1.to_html(index=False)
         html_table=df.to_html(index=False)
         #data observation and log transformation
-        df.index=pd.to_datetime(df['Month'])
-        df['#Tourists'].plot()
-        mpl.pyplot.ylabel("No.of Toursits Arrivals ")
-        mpl.pyplot.xlabel("Year")
-        mpl.pyplot.show()
-         #storing plots in bytes
-        f = io.BytesIO()
-        mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
-        image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
-        f.close()
-        mpl.pyplot.clf()
+        # df.index=pd.to_datetime(df['Month'])
+        # df['#Tourists'].plot()
+        # mpl.pyplot.ylabel("No.of Toursits Arrivals ")
+        # mpl.pyplot.xlabel("Year")
+        # mpl.pyplot.show()
+        #  #storing plots in bytes
+        # f = io.BytesIO()
+        # mpl.pyplot.savefig(f, format="png", dpi=600,bbox_inches='tight')
+        # image_base64 = base64.b64encode(f.getvalue()).decode('utf-8').replace('\n', '')
+        # f.close()
+        # mpl.pyplot.clf()
 
-        series=df['#Tourists']
-        logtransformed=np.log(series)
-        logtransformed.plot()
-        mpl.pyplot.ylabel("log Scale(No.of Toursits Arrivals) ")
-        mpl.pyplot.xlabel("Year")
-        mpl.pyplot.show()
-         #storing plots in bytes
-        g = io.BytesIO()
-        mpl.pyplot.savefig(g, format="png", dpi=600,bbox_inches='tight')
-        image_base64g = base64.b64encode(g.getvalue()).decode('utf-8').replace('\n', '')
-        f.close()
-        mpl.pyplot.clf()
-        #Train test split
-        percent_training=0.80
-        split_point=round(len(series)*percent_training)
-        print(split_point)
-        training , testing = series[0:split_point] , series[split_point:]
-        training=np.log(training)
+        # series=df['#Tourists']
+        # logtransformed=np.log(series)
+        # logtransformed.plot()
+        # mpl.pyplot.ylabel("log Scale(No.of Toursits Arrivals) ")
+        # mpl.pyplot.xlabel("Year")
+        # mpl.pyplot.show()
+        #  #storing plots in bytes
+        # g = io.BytesIO()
+        # mpl.pyplot.savefig(g, format="png", dpi=600,bbox_inches='tight')
+        # image_base64g = base64.b64encode(g.getvalue()).decode('utf-8').replace('\n', '')
+        # f.close()
+        # mpl.pyplot.clf()
+        # #Train test split
+        # percent_training=0.80
+        # split_point=round(len(series)*percent_training)
+        # print(split_point)
+        # training , testing = series[0:split_point] , series[split_point:]
+        # training=np.log(training)
 
 
         
-        #differencing to achieve stationarity
-        training_diff=training.diff(periods=1).values[1:]
+        # #differencing to achieve stationarity
+        # training_diff=training.diff(periods=1).values[1:]
 
-        #plot of residual log differenced series
-        mpl.pyplot.plot(training_diff)
-        mpl.pyplot.title("Tourist arrivals data log-differenced")
-        mpl.pyplot.xlabel("Years")
-        mpl.pyplot.ylabel("Toursits arrivals")
+        # #plot of residual log differenced series
+        # mpl.pyplot.plot(training_diff)
+        # mpl.pyplot.title("Tourist arrivals data log-differenced")
+        # mpl.pyplot.xlabel("Years")
+        # mpl.pyplot.ylabel("Toursits arrivals")
 
 
-        #ACF and PACF plots 1(with log differenced training data)
-        lag_acf=acf(training_diff,nlags=40)
-        lag_pacf=pacf(training_diff,nlags=40,method='ols')
+        # #ACF and PACF plots 1(with log differenced training data)
+        # lag_acf=acf(training_diff,nlags=40)
+        # lag_pacf=pacf(training_diff,nlags=40,method='ols')
 
-        #plot ACF
-        mpl.pyplot.figure(figsize=(15,5))
-        mpl.pyplot.subplot(121)
-        mpl.pyplot.stem(lag_acf)
-        mpl.pyplot.axhline(y=0,linestyle='-',color='black')
-        mpl.pyplot.axhline(y=-1.96/np.sqrt(len(training)),linestyle='--',color='gray')
-        mpl.pyplot.axhline(y=1.96/np.sqrt(len(training)),linestyle='--',color='gray')
-        mpl.pyplot.xlabel('lag')
-        mpl.pyplot.ylabel("ACF")
-         #storing plots in bytes
-        h = io.BytesIO()
-        mpl.pyplot.savefig(h, format="png", dpi=600,bbox_inches='tight')
-        image_base64h = base64.b64encode(h.getvalue()).decode('utf-8').replace('\n', '')
-        h.close()
-        mpl.pyplot.clf()
+        # #plot ACF
+        # mpl.pyplot.figure(figsize=(15,5))
+        # mpl.pyplot.subplot(121)
+        # mpl.pyplot.stem(lag_acf)
+        # mpl.pyplot.axhline(y=0,linestyle='-',color='black')
+        # mpl.pyplot.axhline(y=-1.96/np.sqrt(len(training)),linestyle='--',color='gray')
+        # mpl.pyplot.axhline(y=1.96/np.sqrt(len(training)),linestyle='--',color='gray')
+        # mpl.pyplot.xlabel('lag')
+        # mpl.pyplot.ylabel("ACF")
+        #  #storing plots in bytes
+        # h = io.BytesIO()
+        # mpl.pyplot.savefig(h, format="png", dpi=600,bbox_inches='tight')
+        # image_base64h = base64.b64encode(h.getvalue()).decode('utf-8').replace('\n', '')
+        # h.close()
+        # mpl.pyplot.clf()
 
-        #plot PACF
-        mpl.pyplot.figure(figsize=(15,5))
-        mpl.pyplot.subplot(122)
-        mpl.pyplot.stem(lag_pacf)
-        mpl.pyplot.axhline(y=0,linestyle='-',color='black')
-        mpl.pyplot.axhline(y=-1.96/np.sqrt(len(training)),linestyle='--',color='gray')
-        mpl.pyplot.axhline(y=1.96/np.sqrt(len(training)),linestyle='--',color='gray')
-        mpl.pyplot.xlabel('lag')
-        mpl.pyplot.ylabel("PACF")
-         #storing plots in bytes
-        i = io.BytesIO()
-        mpl.pyplot.savefig(i, format="png", dpi=600,bbox_inches='tight')
-        image_base64i = base64.b64encode(i.getvalue()).decode('utf-8').replace('\n', '')
-        i.close()
-        mpl.pyplot.clf()
+        # #plot PACF
+        # mpl.pyplot.figure(figsize=(15,5))
+        # mpl.pyplot.subplot(122)
+        # mpl.pyplot.stem(lag_pacf)
+        # mpl.pyplot.axhline(y=0,linestyle='-',color='black')
+        # mpl.pyplot.axhline(y=-1.96/np.sqrt(len(training)),linestyle='--',color='gray')
+        # mpl.pyplot.axhline(y=1.96/np.sqrt(len(training)),linestyle='--',color='gray')
+        # mpl.pyplot.xlabel('lag')
+        # mpl.pyplot.ylabel("PACF")
+        #  #storing plots in bytes
+        # i = io.BytesIO()
+        # mpl.pyplot.savefig(i, format="png", dpi=600,bbox_inches='tight')
+        # image_base64i = base64.b64encode(i.getvalue()).decode('utf-8').replace('\n', '')
+        # i.close()
+        # mpl.pyplot.clf()
 
-        #SARIMA Model specification
-        model=sm.tsa.statespace.SARIMAX(training,order=(2,0,3),seasonal_order=(2,1,0,12),trend='c',enforce_invertibility=False,enforce_stationarity=False)
+        # #SARIMA Model specification
+        # model=sm.tsa.statespace.SARIMAX(training,order=(2,0,3),seasonal_order=(2,1,0,12),trend='c',enforce_invertibility=False,enforce_stationarity=False)
 
-        # fit model
-        model_fit = model.fit()
+        # # fit model
+        # model_fit = model.fit()
 
-        print(model_fit.summary())
+        # model_fit.save("assets/REG_SARIMA_model.pickle")
+
+        # print(model_fit.summary())
 
         #plot residual errors
         # residuals = pd.DataFrame(model_fit.resid)
@@ -643,50 +612,51 @@ def predict_detail(request,id):
         # print(residuals.describe())
 
         # Model evaluation and forecast
-        forecast=model_fit.forecast(len(df)-250)
+        model_fitted=load_pickle("assets/REG_SARIMA_model.pickle")
+        forecast=model_fitted.forecast(len(df)-250)
         print(forecast)
         forecast=np.exp(forecast)
         print(forecast)
         #plot forecast results and display RMSE
-        mpl.pyplot.figure(figsize=(10,5))
-        mpl.pyplot.plot(forecast,'r')
-        mpl.pyplot.plot(series,'b')
-        mpl.pyplot.legend(['Predicted test values','Actual data values'])
+        # mpl.pyplot.figure(figsize=(10,5))
+        # mpl.pyplot.plot(forecast,'r')
+        # mpl.pyplot.plot(series,'b')
+        # mpl.pyplot.legend(['Predicted test values','Actual data values'])
 
-        mpl.pyplot.title('RMSE:%.2f'% np.sqrt(sum((forecast-testing)**2)/len(testing)))
-        mpl.pyplot.ylabel("No.of Toursits Arrivals Monthly")
-        mpl.pyplot.xlabel("Year")
-        mpl.pyplot.autoscale(enable='True',axis='x',tight=True)
-        mpl.pyplot.axvline(x=series.index[split_point],color='black');
+        # mpl.pyplot.title('RMSE:%.2f'% np.sqrt(sum((forecast-testing)**2)/len(testing)))
+        # mpl.pyplot.ylabel("No.of Toursits Arrivals Monthly")
+        # mpl.pyplot.xlabel("Year")
+        # mpl.pyplot.autoscale(enable='True',axis='x',tight=True)
+        # mpl.pyplot.axvline(x=series.index[split_point],color='black');
          #storing plots in bytes
-        j = io.BytesIO()
-        mpl.pyplot.savefig(j, format="png", dpi=600,bbox_inches='tight')
-        image_base64j = base64.b64encode(j.getvalue()).decode('utf-8').replace('\n', '')
-        j.close()
-        mpl.pyplot.clf()
+        # j = io.BytesIO()
+        # mpl.pyplot.savefig(j, format="png", dpi=600,bbox_inches='tight')
+        # image_base64j = base64.b64encode(j.getvalue()).decode('utf-8').replace('\n', '')
+        # j.close()
+        # mpl.pyplot.clf()
 
-        forecaste=model_fit.forecast(len(df)-238)
+        forecaste=model_fitted.forecast(len(df)-238)
         forecast_next=forecaste[62:]
         forecast_next=np.exp(forecast_next)
         print(forecast_next)
-        mpl.pyplot.figure(figsize=(10,5))
-        mpl.pyplot.plot(forecast_next,'r')
-        mpl.pyplot.plot(series,'b')
-        mpl.pyplot.legend(['Predicted next steps values'])
-        mpl.pyplot.title('Monthly tourist arrivals predictions')
-        mpl.pyplot.ylabel("No.of Toursits Arrivals ")
-        mpl.pyplot.xlabel("Year")
-        mpl.pyplot.autoscale(enable='True',axis='x',tight=True)
+        # mpl.pyplot.figure(figsize=(10,5))
+        # mpl.pyplot.plot(forecast_next,'r')
+        # mpl.pyplot.plot(series,'b')
+        # mpl.pyplot.legend(['Predicted next steps values'])
+        # mpl.pyplot.title('Monthly tourist arrivals predictions')
+        # mpl.pyplot.ylabel("No.of Toursits Arrivals ")
+        # mpl.pyplot.xlabel("Year")
+        # mpl.pyplot.autoscale(enable='True',axis='x',tight=True)
 
-        #storing plots in bytes
-        k = io.BytesIO()
-        mpl.pyplot.savefig(k, format="png", dpi=600,bbox_inches='tight')
-        image_base64k = base64.b64encode(k.getvalue()).decode('utf-8').replace('\n', '')
-        k.close()
-        mpl.pyplot.clf()
+        # #storing plots in bytes
+        # k = io.BytesIO()
+        # mpl.pyplot.savefig(k, format="png", dpi=600,bbox_inches='tight')
+        # image_base64k = base64.b64encode(k.getvalue()).decode('utf-8').replace('\n', '')
+        # k.close()
+        # mpl.pyplot.clf()
         # getting details of id
         all_details=Predictions.objects.get(id=id)
-        nexts=forecaste
+        nexts=forecast_next
 
        
 
@@ -700,12 +670,7 @@ def predict_detail(request,id):
         'all_details':all_details ,
         'html_table':html_table ,
         'html_table_template': html_table_template,
-        'image_base64':image_base64 ,
-        'image_base64g':image_base64g ,
-        'image_base64h':image_base64h ,
-        'image_base64i':image_base64i ,
-        'image_base64j':image_base64j ,
-        'image_base64k':image_base64k ,
+      
         'next_years_values':nexts ,
        
         }

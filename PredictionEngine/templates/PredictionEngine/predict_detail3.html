@@ -2,7 +2,7 @@
 
 
 {% block content %}
-
+{% load static%}
 <ul>
 
 
@@ -29,33 +29,24 @@
 </div>
 </ul>
 
-<img align="middle" src="data:image/png;base64,{{image_base64}}" alt="Sorry there's something wrong with py script .Please download analysis to see figure" width=700 height=auto />
-
-<br>
 
 
-{% if  image_base64g %}
-<img src="data:image/png;base64,{{image_base64g}}", width=700 height=auto />
 
-{% endif %}
+<img src="{% static 'img/sarima_input.png'%}" width=700 height=auto />
 
-{% if  image_base64h %}
-<img src="data:image/png;base64,{{image_base64h}}", width=700 height=auto />
+<img src="{% static 'img/sarima_input_logscaled.png'%}" width=700 height=auto />
 
-{% endif %}
+<img src="{% static 'img/sarima_afc.png'%}" width=700 height=auto />
 
-{% if  image_base64i %}
-<img src="data:image/png;base64,{{image_base64i}}", width=700 height=auto />
+<img src="{% static 'img/sarima_pafc.png'%}" width=700 height=auto />
 
-{% endif %}
-{% if  image_base64j %}
-<img src="data:image/png;base64,{{image_base64j}}", width=700 height=auto />
 
-{% endif %}
-{% if  image_base64k %}
-<img src="data:image/png;base64,{{image_base64k}}", width=700 height=auto />
+<img src="{% static 'img/sarima_result.png'%}" width=700 height=auto />
 
-{% endif %}
+
+<img src="{% static 'img/sarima_forecast.png'%}" width=700 height=auto />
+
+
 
 <br>
 Predictions of monthly no of tourist arrivals in Year:2018:<br><b>{{next_years_values}}<b>
