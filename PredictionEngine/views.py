@@ -534,7 +534,7 @@ def predict_detail(request,id):
         # getting details of id
         all_details=Predictions.objects.get(id=id)
         No_tourists=forecast_next.astype(np.int64)
-        nexts=pd.DataFrame(No_tourists.items(),columns=["Year","ForeignExchangeEarning(NPR Milliom)"])
+        nexts=pd.DataFrame(No_tourists.items(),columns=["Year","No of Tourist Arrivals"])
         html_nexts=nexts.to_html(index=False)
 
 

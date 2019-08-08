@@ -42,7 +42,8 @@
               </li>
 
                 <li >
-                    <form class="navbar-search pull-left">
+                    
+                    <form class="navbar-search pull-left" action="{% url 'search' %}" method="GET" value="{{request.GET.query}}">{% csrf_token %}
                       <input placeholder="Search" class="search-query form-control col-md-10" name="query"type="text" style=" margin-left: 250px;">
                       <!-- <a href="" style="display: inline-block;">&#128269;</a> -->
                       <!-- <a href=""class="fa fa-search"></a> -->

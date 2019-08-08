@@ -24,6 +24,7 @@ urlpatterns = [
     url('analysis/',include('AnalysisEngine.urls')) ,
     url('predictions/',include('PredictionEngine.urls')) ,
     path('datasets/', views.DataJASON.as_view()),
+    path('search/',include('SearchEngine.urls')),
   
 
 ]

@@ -1,0 +1,14 @@
+{% extends 'FrontendNavigator/base.html' %}
+
+
+{% block content %}
+
+{% for project in y %}
+<a href="{% url 'detail' project.id %}">
+ {{project.title}}<br><br></a>
+{% endfor %}
+{% for project in z %}
+<a href="{% url 'predict_detail' project.id %}">
+ {{project.title}}<br><br></a>
+{% endfor %}
+{% endblock content %}
