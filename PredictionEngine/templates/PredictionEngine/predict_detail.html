@@ -28,13 +28,15 @@
 {{html_table_template| safe }}
 </div>
 </ul>
-
+<form  method="post">
+{% csrf_token %}
+<input type="text" name="year" placeholder="Enter year to predict gross foreign exchange earning"  style="width: 600px;"><br><br>
+<input type="submit" name="year_submit" value="PREDICT THE GROSS FOREIGN EXCHANGE EARNING (IN MILLION) "> </b>
+</form>
 <img align="middle" src="data:image/png;base64,{{image_base64}}" alt="Sorry there's something wrong with py script .Please download analysis to see figure" width=700 height=auto />
 
 <br>
 
-<h1>lololololo</h1>
-<img src="{% static 'PredictionEngine/static/img/sarima_result.png'%}" width=700 height=auto />
 
 {% if  image_base64g %}
 <img src="data:image/png;base64,{{image_base64g}}", width=700 height=auto />
@@ -60,8 +62,7 @@
 {% endif %}
 
 <br>
-Foreign exchange earning in 2018(in NPR million):<b>{{next_year_value}}<b>
-
+Foreign exchange earning in {{year}}(in NPR million):<b>{{next_year_value}}<b>
 
 
 

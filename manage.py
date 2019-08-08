@@ -265,7 +265,7 @@ def main():
         mpl.pyplot.savefig('PredictionEngine/static/img/sarima_result.png', dpi=600,bbox_inches='tight')
         mpl.pyplot.clf()
 
-        forecaste=model_fitted.forecast(len(df)-238)
+        forecaste=model_fitted.forecast(len(df)-214)
         forecast_next=forecaste[62:]
         forecast_next=np.exp(forecast_next)
         print(forecast_next)
@@ -367,7 +367,7 @@ def main():
         
         #read shape file
 
-        fp="C:\\Users\\Pukar\\TOURISM ANALYTICS\\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\\TourismAnalytics\\assets\\NepalMaps-master\\baselayers\\NPL_adm\\NPL_adm3.shp"
+        fp="assets/NepalMaps-master/baselayers/NPL_adm/NPL_adm3.shp"
 
         map_df = gpd.read_file(fp)
 
