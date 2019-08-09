@@ -2,13 +2,43 @@
 
 
 {% block content %}
+<style>
+.searchresult{
+    width:30%; 
+    margin:10px 0px 10px 30px; 
+    padding:10px; 
+    background-color:lightgray; 
+    box-shadow:0px 0px 5px black;
+
+}
+.searchresult:hover{
+    background-color:gray;
+    color:#ffffff;
+    box-shadow:5px 2px 7px #000;
+
+}
+</style>
+
+{% if y|length == 0 and z|length == 0 %}
+<span style="color:red; padding-left:40px; font-size:30px;"> No Result...</span>
+
+{% else %}
+<span style="color:green; padding-left:40px; font-size:30px;">
+ Search Result</span>
+
 
 {% for project in y %}
 <a href="{% url 'detail' project.id %}">
- {{project.title}}<br><br></a>
+
+<div class="searchresult" >
+ {{project.title}}
+ </div></a>
 {% endfor %}
 {% for project in z %}
 <a href="{% url 'predict_detail' project.id %}">
- {{project.title}}<br><br></a>
+<div class="searchresult" >
+ {{project.title}}
+ </div></a>
 {% endfor %}
+{% endif%}
 {% endblock content %}

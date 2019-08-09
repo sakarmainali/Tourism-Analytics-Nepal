@@ -34,6 +34,10 @@ from keras.layers import Dense
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import acf,pacf
 from statsmodels.iolib.smpickle import load_pickle
+from geopandas import GeoDataFrame
+from shapely.geometry import Point
+import matplotlib.pyplot as plt
+
 def main():
 
     def run_models():
@@ -357,7 +361,7 @@ def main():
         mpl.pyplot.savefig('AnalysisEngine/static/img/id5.png', dpi=600,bbox_inches='tight')
         mpl.pyplot.clf()
 
-        #No. of tourists destinations distribution map
+         #No. of tourists destinations distribution map
 
 
         data=pd.read_csv("assets/nepal-district.csv")
@@ -370,6 +374,21 @@ def main():
         fp="assets/NepalMaps-master/baselayers/NPL_adm/NPL_adm3.shp"
 
         map_df = gpd.read_file(fp)
+        
+
+        
+
+
+        # fig, ax = map_df.plot(figsize = (15, 12), color = "whitesmoke", edgecolor = "lightgrey", linewidth = 0.5)
+        # texts = []
+
+
+
+
+
+
+
+
 
         #joining file
 
@@ -379,8 +398,16 @@ def main():
 
         vmin, vmax = 1, 15  #data min - max values
 
-        fig, ax = mpl.pyplot.subplots(1, figsize=(15, 7)) #number of figure and size axis
 
+        map_df["center"] = map_df["geometry"].centroid
+        za_points = map_df.copy()
+        za_points.set_geometry("center", inplace = True)
+
+        fig, ax = mpl.pyplot.subplots(1, figsize=(15, 7)) #number of figure and size axis
+        for x, y, label in zip(za_points.geometry.x, za_points.geometry.y, za_points["NAME_3"]):
+            texts.append(plt.text(x, y, label, fontsize = 8))
+
+        
         #plotting map
 
         merged.plot(column = variable, cmap='Blues', linewidth = 0.8,ax=ax, edgecolor = '0.8')
@@ -402,18 +429,9 @@ def main():
 
         #storing plots in bytes
         
-        mpl.pyplot.savefig('AnalysisEngine/static/img/id6.png', dpi=600,bbox_inches='tight')
+        mpl.pyplot.savefig('AnalysisEngine/static/img/id6.png', dpi=700,bbox_inches='tight')
     
         mpl.pyplot.clf()
-
-        #Gross foreign exchange earning from tourism
-        data=pd.read_csv("assets/gross foreign exchange earning from tourism.csv",header=0,index_col=0)
-        data.plot()
-       
-        mpl.pyplot.savefig('AnalysisEngine/static/img/pid1.png',dpi=600,bbox_inches='tight')
-        
-        mpl.pyplot.clf()
-
 
 
 
