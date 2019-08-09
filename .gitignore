@@ -1,7 +1,7 @@
 TourismAnalytics/Settings.py
 .vscode
-assets/mlpforecastwithscore.py
-
+assets/REG_MLP_model.h5
+assets/REG_SARIMA_model.pickle
 __pycache__/
 *.py[cod]
 */__pycache__/

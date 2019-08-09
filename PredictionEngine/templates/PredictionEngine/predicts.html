@@ -2,55 +2,109 @@
 
 
 {% block content %}
-{% comment %} 
+<br>
 <div align="right">
  <a href="{% url 'ppdf_view' all_details.id %}"><span style="color:orange">Downloand PDF </span> </a><br>
-</div>  {% endcomment %}
+</div> 
+ 
+<style>
+body{
+  background-color:lightgray;
+}
+.predictionfrom{
+  background-color:lightgray;
+  margin: -20px 0px 0px 0px;
+  padding:0px 10px 0px 20px;
+  display:inline-block;
+}
+input[type='text']{
+  height:30px;
+  width:350px;
+}
+select{
+  height:30px;
+  width:350px;
+}
+input[type='checkbox']{
+  width:20px;
+  height:20px;
+}
+.predictionindex{
+  display:inline-block;
+  background:url('../id1.png');
+  background-color:lightgray;
+   width:45%;
+  float:right;
+ 
+}
+#indextable,.th{
+  border:1px solid black;
+  text-align:center;
+  padding:5px;
+  
+}
+#indextable{
+  margin-right:20px;
+  box-shadow:0px 0px 5px #000000; 
+  
+}
+.access{
+  padding-left:35%;
+  display:inline-block;
+  padding-top:20px;
+ 
+}
 
-
-
+</style>
+<h3>Percentage of tourist arrival prediction using Multilayer Preceptron Model</h3>
+<div class="predictionfrom">
 <form method="post">
 {% csrf_token %}
-<b>NAME OF LOCATION:</b>
-<input type="text" name="place" placeholder="Enter name of location" ><br><br>
- MAIN PURPOSE OF TOURIST VISIT:<br>
+<table>
+<tr><td>
+<b>NAME OF LOCATION:</b><br>
+<br></td><td>
+<input type="text" name="place" placeholder="Enter name of location" >  </td></tr>
+ <tr><td><b>MAIN PURPOSE OF TOURIST VISIT:</b><br>
+<br></td><td>
  <select name="Major purpose of visit">
     
     <option value="Treeking">Treeking</option>
     <option value="Treeking and Mountaineering">Treeking and Mountaineering</option>
     <option value="holiday and pleasure">holiday and pleasure</option>
     <option value="Pilgrimage visit">Pilgrimage visit</option>
-  </select>
-  <br>
-  <br>
-<b>ACCESSIBILITY STATUS :</b>
+  </select></td></tr>
+<tr><td>
+<b>ACCESSIBILITY STATUS :</b><br>
+<br></td><td>
  <select name="ACCESSIBILITY STATUS">
     <option value="p">POOR</option>
     <option value="f">FAIR</option>
     <option value="g">GOOD</option>
     <option value="b">BETTER</option>
-  </select>
-  <br>
-  <br>
-<b>ACCOMODATION STATUS :</b>
+  </select></tr></td>
+<tr><td>
+<b>ACCOMODATION STATUS :</b><br>
+<br></td><td>
  <select name="ACCOMODATION STATUS">
     <option value="p">POOR</option>
     <option value="f">FAIR</option>
     <option value="g">GOOD</option>
     <option value="b">BETTER</option>
-  </select>
-  <br>
-  <br>
-<b>HEALTH SERVICES/MEDICAL STATUS :</b>
+  </select></tr></td>
+  <tr><td>
+<b>HEALTH SERVICES/MEDICAL STATUS :</b><br>
+<br></td><td>
  <select name="MED STATUS">
     <option value="p">POOR</option>
     <option value="f">FAIR</option>
     <option value="g">GOOD</option>
     <option value="b">BETTER</option>
-  </select>
-  <br>
-  <br>
+  </select></tr></td>
+  
+  <tr><td>
 <b>TOURISTS ACTIVITIES IN THE LOCATION:</b><br>
+<br></td><td>
 <input type="checkbox" name=C1 value="1">Mountain climbing/ Mountaineering<br>
 <input type="checkbox" name=C2 value="1">Trekking/hiking<br>
 <input type="checkbox" name=C3 value="1">Scenery,birds,animals watching /Photography<br>
@@ -65,17 +119,19 @@
 <input type="checkbox" name=C12 value="1">Bicycle/Horse riding<br>
 <input type="checkbox" name=C13 value="1">jungle safari /Elephant riding/hunting<br>
 <input type="checkbox" name=C14 value="1">Indoor Enjoyment <br>
-<input type="checkbox" name=C15 value="1">Meditaion /religious activities<br>
+<input type="checkbox" name=C15 value="1">Meditaion /religious activities<br><br>
+<br>
+</tr></td>
 
-<br>
-<br>
-<b>NUMBER OF NEARBY TOURISTS SPOTS/PLACES TO VISIT:</b>
-<input type="text" name="spots" placeholder="Enter no of spots/places">
-<br>
-<br>
+<tr><td>
+<b>NUMBER OF NEARBY TOURISTS SPOTS/PLACES TO VISIT:</b><br>
+<br></td><td>
+<input type="text" name="spots" placeholder="Enter no of spots/places"></td></tr>
+<tr><td colspan="2" align="center">
 <b><input type="submit" name="S" value="PREDICT THE PERCENTAGE OF TOURIST ARRIVALS "> </b>
+</td></tr>
 </form>
-<br>
+<br><tr><td  colspan="2">
 location name:{{place}}<br>
 Predicted percentage of tourist arrival out of total tourist arrivals:<b>{{new_prediction}}</b>
 
@@ -88,5 +144,62 @@ RECORDS:<br>
 </b>
 <br>
 {{message}}
+</tr></td>
 
+</table>
+</div >
+<div class="predictionindex">
+<div class="access">
+<strong>ACCESSIBILITY</strong></div><br>
+<sub>(References:-Department of Roads of Nepal(map)-Civil Aviation Authority of Nepal (CAAN)(map))</sub>
+<table id="indextable">
+  <tr>
+    <th class="th">Poor</th>
+    <th class="th">Fair</th>
+    <th class="th">Good</th>
+    <th class="th">Better</th>
+  </tr> 
+   <tr>
+    <td class="th">-Only local track, trials roads</td>
+    <td class="th">-Only graveled or secondary roads </td>
+    <td class="th">-Metaled or primary roads or feeder road<br>-Railways<br>-National domestic airports</td>
+    <td class="th">-Highway<br>-International Airport</td>
+  </tr> 
+</table>
+<div class="access">
+<strong>ACCOMODATION</strong></div><br>
+<sub>(References:-Hotel association Nepal(records))</sub>
+<table id="indextable">
+  <tr>
+    <th class="th">Poor</th>
+    <th class="th">Fair</th>
+    <th class="th">Good</th>
+    <th class="th">Better</th>
+  </tr> 
+   <tr>
+    <td class="th">-Local shops/teahouse and simple home stays</td>
+    <td class="th">-Local hotels and lodges<br>-Well managed or tourism-oriented homestays and guest houses </td>
+    <td class="th">-Tourist standard hotels<br>-Tourist class lodge<br>-Registered resorts</td>
+    <td class="th">- Registered star hotels and lodges<br>-Larger hotels for tourist accommodationt</td>
+  </tr> 
+</table>
+<div class="access">
+<strong>HEALTH & MEDICAL</strong></div><br>
+<sub>(References:-Ministry of health and population(map))</sub>
+<table id="indextable">
+  <tr>
+    <th class="th">Poor</th>
+    <th class="th">Fair</th>
+    <th class="th">Good</th>
+    <th class="th">Better</th>
+  </tr> 
+   <tr>
+    <td class="th">-Only simple sub-health post and health posts</td>
+    <td class="th">-Primary health care center<br>-Community hospital </td>
+    <td class="th">-Private clinics<br>-Private small hospitals<br>-District hospitals</td>
+    <td class="th">-Zonal, Regional Central gov hospitals</td>
+  </tr> 
+</table>
+
+</div>
 {% endblock content %}

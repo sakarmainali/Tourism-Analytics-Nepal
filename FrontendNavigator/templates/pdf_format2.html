@@ -1,39 +1,73 @@
-
 {% extends 'pdfbase.html' %}
-{% load static %}
 
 {% block content %}
+{% load static %}
 
 
+<ul>
 
 
-	<div class="row justify-content-center">
-                        <div class="col-12 col-md-10 col-lg-8">
-                            <form class="card card-sm">
-                                <div class="card-body row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <i class="fas fa-search h4 text-body"></i>
-                                    </div>
-                                    <!--end of col-->
-                                    <div class="col">
-                                        <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search topics or keywords">
-                                    </div>
-                                    <!--end of col-->
-                                    <div class="col-auto">
-                                        <button class="btn btn-lg btn-success" type="submit">Search</button>
-                                    </div>
-                                    <!--end of col-->
-                                </div>
-                            </form>
-                
-                        </div>
-                        <!--end of col-->
-                    </div>
-</div>	
-<div style="text-align: center">	 
+         <span style="color:purple">PREDICTION REPORT: {{all_details.id}}</span></a>
+        </div>
+<br>
 
-<img
-src="{% static 'app1/images/inforgaphic_index.png' %}"/>
+<br>
+ <b><span style="color:green"> <h2>{{all_details.title}}</h2></span></b>
+ 
+
+ <i>{{all_details.created_at}} </i><br>
+ 
+ {{all_details.body}} 
+<br>
+
+</ul>
+
+<div>
+{{html_table | safe }}
 </div>
-  
+
+
+
+<br>
+{% if all_details.id == 1 %}
+
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\id1.png" width=700 height=auto alt="Image">
+<br>
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\id11.png" width=700 height=auto alt="Image">
+<br>PREDICTIONS:<br>
+<h1>
+{{c1}}
+</h1>
+{% endif %}
+{% if all_details.id == 3 %}
+
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\sarima_input.png" width=700 height=auto alt="Image"><br>
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\sarima_input_logscaled.png" width=700 height=auto alt="Image"><br>
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\sarima_afc.png" width=700 height=auto alt="Image"><br>
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\sarima_pafc.png" width=700 height=auto alt="Image"><br>
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\sarima_forecast.png" width=700 height=auto alt="Image"><br>
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\PredictionEngine\static\img\sarima_result.png" width=700 height=auto alt="Image"><br>
+<br>
+{{c3 | safe }}
+
+
+{% endif %}
+
+{% if all_details.id == 2 %}
+<img src="C:\Users\Pukar\TOURISM ANALYTICS\TOURISM ANALYSIS AND PREDICTIONS IN NEPAL\TourismAnalytics\AnalysisEngine\static\img\pid2.png" width=700 height=auto alt="Image">
+
+<br>
+{{c2}}
+{% endif %}
+
+
+
+
+
+
+
+
+</ul>
+
+
 {% endblock content %}

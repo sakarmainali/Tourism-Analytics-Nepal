@@ -39,7 +39,11 @@ from .utils import render_to_pdf
 
 
 
-dic=[]
+
+contextid1=[]
+contextid2=[]
+
+
 # Create your views here.
 
 def predict_view(request):
@@ -76,24 +80,25 @@ def listpicview(request,id):
 
 def PDFF(request,id,*args, **kwargs):
     
-    template = get_template('pdf_format.html')
+    template = get_template('pdf_format2.html')
 
     all_details=Predictions.objects.get(id=id)
     title=all_details.title
     response=predict_detail(request,id)
     html_table=response.context_data['html_table']
-    image_base64=response.context_data['image_base64']
-    
+    html_nexts=response.context_data['html_nexts']
    
     context = {
     'all_details': all_details ,
     'html_table': html_table ,
-    'image_base64': image_base64 ,
     
+    'c1': contextid1 ,
+    'c2': contextid2 ,
+    'c3': html_nexts ,
      
     } 
     html = template.render(context)
-    pdf = render_to_pdf('pdf_format.html', context)
+    pdf = render_to_pdf('pdf_format2.html', context)
     if pdf:
         response = HttpResponse(pdf, content_type='application/pdf')
         filename = title+".pdf"
@@ -228,6 +233,8 @@ def predict_detail(request,id):
 
         mpl.pyplot.scatter(x,y2,color='k')
         mpl.pyplot.show()
+        mpl.pyplot.savefig('PredictionEngine/static/img/id11.png', dpi=600,bbox_inches='tight')
+        
          #storing plots in bytes
         g = io.BytesIO()
         #fig.savefig(f, format="png", dpi=600,bbox_inches='tight')
@@ -238,10 +245,13 @@ def predict_detail(request,id):
         nexts=0
         year=2018
         submitt=request.POST.get("year_submit")
-        if(submitt=='PREDICT THE GROSS FOREIGN EXCHANGE EARNING (IN MILLION) '):
+        if(submitt=='PREDICT THE GROSS FOREIGN EXCHANGE EARNING (IN MILLION) ' and int(float(request.POST.get("year"))) > 1995):
             year=int(float(request.POST.get("year")))
+            contextid1.clear() 
             
-        nexts=linear_reg_perdict(dataset,year)  
+        nexts=linear_reg_perdict(dataset,year) 
+        
+        contextid1.append({year:nexts})
        
 
                 
@@ -252,7 +262,7 @@ def predict_detail(request,id):
 
 
 
-
+        
 
 
          #parsing suitable context for redering...
@@ -260,6 +270,7 @@ def predict_detail(request,id):
         'all_details':all_details ,
         'html_table':html_table ,
         'html_table_template': html_table_template,
+        'html_nexts':html_table ,
         'image_base64':image_base64 ,
         'image_base64g':image_base64g ,
         'next_year_value':nexts ,
@@ -277,7 +288,7 @@ def predict_detail(request,id):
         html_table=data.to_html(index=False)
         
         
-
+        all_details=Predictions.objects.get(id=id)
         place=request.POST.get("place")
         purpose=request.POST.get("Major purpose of visit")
         ACCESSIBILITY=request.POST.get("ACCESSIBILITY STATUS")
@@ -493,15 +504,19 @@ def predict_detail(request,id):
             print(new_prediction_value)
 
             #dic[place]=new_prediction_value
-            dic.append({place:new_prediction_value})
+            contextid2.append({place:new_prediction_value})
+            
+           
         
 
         context = {
+        'all_details':all_details ,
         'new_prediction' :new_prediction_value ,  
         'place':place ,
         'html_table':html_table ,
         'html_table_template': html_table_template,
-        'predicks':dic ,
+        'html_nexts':html_table ,
+        'predicks':contextid2 ,
         
 
        
@@ -536,6 +551,8 @@ def predict_detail(request,id):
         No_tourists=forecast_next.astype(np.int64)
         nexts=pd.DataFrame(No_tourists.items(),columns=["Year","No of Tourist Arrivals"])
         html_nexts=nexts.to_html(index=False)
+
+        
 
 
 
