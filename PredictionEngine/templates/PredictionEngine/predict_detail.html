@@ -1,14 +1,16 @@
+    
 {% extends 'FrontendNavigator/base.html' %}
 
 
 {% block content %}
+<div style="background-color:rgba(209, 235, 215,0.7); margin-top:-20px; padding-bottom:30px;">
 
 <ul>
 
 
 <br>
 <div align="right">
- <a href="{% url 'ppdf_view' all_details.id %}"><span style="color:orange">Downloand PDF </span> </a><br>
+ <a href="{% url 'ppdf_view' all_details.id %}"><span style="color:orange;border:2px solid red; padding:5px;margin-right:10px;">Downloand PDF </span> </a><br>
 </div> 
 
 <br>
@@ -28,11 +30,24 @@
 {{html_table_template| safe }}
 </div>
 </ul>
+<div style="background-color:rgba(182, 219, 191,0.7); padding:20px;">
+<div style="padding-left:20px;font-size:25px;">
+<div style="display:inline-block;">
+
 <form  method="post">
 {% csrf_token %}
-<input type="text" name="year" placeholder="Enter year to predict gross foreign exchange earning"  style="width: 600px;"><br><br>
-<input type="submit" name="year_submit" value="PREDICT THE GROSS FOREIGN EXCHANGE EARNING (IN MILLION) "> </b>
+<input type="number" name="year" placeholder="Enter year"  style="width: 600px;"><br><br>
+<input type="submit" name="year_submit" value="PREDICT"> </b>
 </form>
+</div>
+</div><br>
+<span style="padding-bottom:50px; font-size:20px; color:#26a307; padding-left:20px;">Foreign exchange earning in {{year}}(in NPR million):<b>{{next_year_value}}</b></span>
+
+</div>
+
+</br>
+
+
 <img align="middle" src="data:image/png;base64,{{image_base64}}" alt="Sorry there's something wrong with py script .Please download analysis to see figure" width=700 height=auto />
 
 <br>
@@ -62,11 +77,10 @@
 {% endif %}
 
 <br>
-Foreign exchange earning in {{year}}(in NPR million):<b>{{next_year_value}}<b>
 
 
 
-
+</div>
 
 
 {% endblock content %}

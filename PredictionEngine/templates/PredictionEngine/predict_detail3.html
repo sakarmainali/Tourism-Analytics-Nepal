@@ -8,7 +8,7 @@
 
 <br>
 <div align="right">
- <a href="{% url 'ppdf_view' all_details.id %}"><span style="color:orange">Downloand PDF </span> </a><br>
+ <a href="{% url 'ppdf_view' all_details.id %}"><span style="color:orange;border:2px solid red; padding:5px;margin-right:10px;">Downloand PDF </span> </a><br>
 </div> 
 
 <br>
@@ -49,11 +49,13 @@
 
 
 <br>
+<div style="background-color:rgba(170, 245, 162,0.6);font-size:20px;padding:20px; color:rgba(16, 36, 21,0.9);">
 <b>Predictions of monthly no of tourist arrivals in upcoming years:</b>
 <br>
 
 {{html_nexts| safe }}
 
 
+</div>
 
 {% endblock content %}
