@@ -1,5 +1,4 @@
 """TourismAnalytics URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
 Examples:
@@ -19,14 +18,12 @@ from django.conf.urls import url , include
 from rest_framework.urlpatterns import format_suffix_patterns
 from APIEngine import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls ,name='admin'),
     url('',include('FrontendNavigator.urls')) ,
     url('analysis/',include('AnalysisEngine.urls')) ,
     url('predictions/',include('PredictionEngine.urls')) ,
     path('datasets/', views.DataJASON.as_view()),
     path('search/',include('SearchEngine.urls')),
-  
-
 ]
 
 urlpatterns=format_suffix_patterns(urlpatterns)

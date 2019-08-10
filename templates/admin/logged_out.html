@@ -2,7 +2,6 @@
 
 {% block content %}
 
-<p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
-
+<p>{% trans "Thank you " %} {{ user.username }}{% trans " for all your work here and see you soon... " %}</p>
 <p><button><a href="{% url 'admin:index' %}">{% trans 'Log in again' %}</a></button></p>
 {% endblock %}

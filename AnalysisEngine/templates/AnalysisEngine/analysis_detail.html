@@ -10,7 +10,7 @@
 
 <br>
 <div align="right">
- <a href="{% url 'pdf_view' all_details.id %}"><span style="color:orange">Downloand PDF </span> </a><br>
+ <a href="{% url 'pdf_view' all_details.id %}"><span style="color:orange;border:2px solid red; padding:5px;margin-right:10px;">Downloand PDF </span> </a><br>
 </div>
 
 <br>
@@ -50,8 +50,8 @@
 
 {% if all_details.id == 4 %}
 
-<img src="{% static 'img/id4.png'%}" width=700 height=auto />
-<img src="{% static 'img/id44.png'%}" width=700 height=auto />
+<img src="{% static 'img/id4.png'%}" width=75% height=auto />
+<img src="{% static 'img/id44.png'%}" width=75% height=auto />
 
 {% endif %}
 {% if all_details.id == 5 %}
