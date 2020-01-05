@@ -36,4 +36,5 @@ This repository contains a college project titled "Tourism Analysis and Predicti
   ```shell
   python manage.py runserver   
   ```
-* Now you can use the application and start your own contributions by pushing change requests
+* Now you can run the application and start exploring interesting insights and features present
+* If you identified or solved some issues and want to further improve the application do start your own contributions by pushing change requests 
