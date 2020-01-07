@@ -27,7 +27,7 @@ This repository contains a college project titled "Tourism Analysis and Predicti
   pip install -r requirements.txt
   ```
   
-* Esnure specified Django version(Django>=2.2) installed:
+* Ensure specified Django version(Django>=2.2) installed:
   ```shell
   python -m django --version  
   ```
