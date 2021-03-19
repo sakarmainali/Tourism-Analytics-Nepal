@@ -10,7 +10,7 @@ descartes==1.1.0
 Django==2.2.2
 django-extensions==2.1.9
 django-filter==2.1.0
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 Fiona==1.8.6
 gast==0.2.2
 GDAL==2.4.1
