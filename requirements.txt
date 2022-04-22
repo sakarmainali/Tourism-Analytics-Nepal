@@ -37,7 +37,7 @@ psycopg2==2.8.2
 pydot==1.4.1
 pydotplus==2.0.2
 pyparsing==2.4.0
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pyproj==2.2.0
 python-dateutil==2.8.0
 pytz==2019.1
